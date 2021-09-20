@@ -13,10 +13,22 @@ body {
 
 img {
   display: block;
-  max-width: 100%;
+  width: 350px;
   height: auto;
 }
 
+ul {
+  list-style: none;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.photo-card {
+  margin: 20px;
+}
 .search-form {
   display: flex;
   justify-content: center;

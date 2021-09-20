@@ -3,5 +3,6 @@ export default function getRefs() {
         listEl: document.querySelector('.gallery'),
         formEl: document.querySelector('#search-form'),
         btnEl: document.querySelector('.search-form_btn'),
+        loadMoreBtn: document.querySelector("[data-action='load-more']")
     }
 }

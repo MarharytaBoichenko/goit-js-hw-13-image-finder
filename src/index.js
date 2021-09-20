@@ -1,43 +1,67 @@
 import './sass/main.scss';
 import ApiImages from './js/apiService.js'
 import getRefs from './js/refs.js'
-import markup  from "./templates/markup.hbs"
+import markup from "./templates/markup.hbs"
+
+import { showNotice, showError } from "./js/notifications";
 
 const refs = getRefs();
 console.log(refs.listEl);
 console.log(refs.formEl);
 console.log(refs.btnEl);
-
+console.log(refs.loadMoreBtn);
 
 refs.formEl.addEventListener('submit', onSearch);
-
+refs.loadMoreBtn.addEventListener("click", onBtnLoadMore);
+// refs.loadMoreBtn.addEventListener('click', onScroll);
+    ;
 const imagesApiService = new ApiImages();
 
-// fetch('https://pixabay.com/api/?image_type=photo&orientation=horizontal&q=cat&page=1&per_page=12&key=23459903-45cdb2e5cfc763a2eaddc7311')
-//     .then(response => response.json)
-//     .then(data => console.log(data));
+const noticeText = 'There are images on your  query)'
+const ErrorText = 'Sorry, no data found. Enter another text'
 
 function onSearch(e) {
     e.preventDefault();
     imagesApiService.searchQuery = e.currentTarget.elements.query.value;
     console.log(imagesApiService.searchQuery);
 
+    /// если ввели  пробелы 
+    // if (imagesApiService.searchQuery === "") {
+    //     showError(ErrorText);
+    // }
+    //gthtl  новым запросом надо  обновить параметр  page  снова до 1 
+    // и  очистить  страницу 
+
+    imagesApiService.resetPage();
+    clearImageGallery();
+
     imagesApiService.fetchData()
         .then((hits) => {
-        console.log(hits);
-            // renderImageCard(hits);
-        }) 
+            console.log(hits);
+            renderImageCard(hits);
+        });
+     showNotice(noticeText);
     }
 
 function renderImageCard(hits) {
-    // const cardMarkup = markup(hits);
     refs.listEl.insertAdjacentHTML('beforeend', markup(hits))
 }
 
-
-
-
-
+function onBtnLoadMore(e) {
+    imagesApiService.fetchData()
+        .then((hits) => {
+            console.log(hits);
+            renderImageCard(hits);
+            refs.listEl.scrollIntoView({
+        behavior: 'smooth',
+        block: 'end',
+            });
+    });
+}
+/// очистить страницу  от рисунков перед новым запросом
+function clearImageGallery() {
+    refs.listEl.innerHTML = "";
+}
 
 
 

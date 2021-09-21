@@ -2,6 +2,7 @@ import './sass/main.scss';
 import ApiImages from './js/apiService.js'
 import getRefs from './js/refs.js'
 import markup from "./templates/markup.hbs"
+// import * as basicLightbox from 'basiclightbox'
 
 import { showNotice, showError } from "./js/notifications";
 
@@ -13,12 +14,15 @@ console.log(refs.loadMoreBtn);
 
 refs.formEl.addEventListener('submit', onSearch);
 refs.loadMoreBtn.addEventListener("click", onBtnLoadMore);
-// refs.loadMoreBtn.addEventListener('click', onScroll);
+refs.listEl.addEventListener('click', onImgClick);
+
+
     ;
 const imagesApiService = new ApiImages();
 
 const noticeText = 'There are images on your  query)'
-const ErrorText = 'Sorry, no data found. Enter another text'
+const ErrorText = 'Sorry, no data found. Enter another text';
+
 
 function onSearch(e) {
     e.preventDefault();
@@ -63,8 +67,49 @@ function clearImageGallery() {
     refs.listEl.innerHTML = "";
 }
 
+function onImgClick(e) {
+    e.preventDefault();
+    console.log(e.target.dataset.source);
+    // if (e.target.nodename !== "IMG") {
+    //     return 
+    // }
+    createModal(e);
+    
+}
+
+function createModal(e) {
+    const instance = basicLightbox.create(`
+    <div class="modal">
+        <img class="modal_img"
+      src=${e.target.dataset.source}
+      alt=${e.target.alt}
+    />
+    </div>
+`);
+    instance.show();
+    window.addEventListener('keydown', onEscapeCloseModal)
+}
 
 
+
+//////????????????????? 
+function onEscapeCloseModal(e) {
+    console.log(e.code);
+    if (e.code === 'Escape') {
+        
+//          const instance = basicLightbox.create(`
+//     <div class="modal">
+//         <img class="modal_img"
+//       src=${e.target.dataset.source}
+//       alt=${e.target.alt}
+//     />
+//     </div>
+// `);
+//         console.log(instance);
+        instance.close()
+        window.removeEventListener('keydown', onEscapeCloseModal);
+}
+}
 
 
 

@@ -1,8 +1,8 @@
 {{#each this}}
-<li>
+<li class="gallery-item">
 <div class="photo-card">
     <div class='photo-card__thumb'>
-    <img src="{{webformatURL}}" data-source="{{largeImageURL}}" alt="{{tags}}" />
+    <img src="{{webformatURL}}" class='photo-card_image' data-source="{{largeImageURL}}" alt="{{tags}}" />
 </div>
     <div class="stats">
         <p class="stats-item">
@@ -26,16 +26,3 @@
 </li>
 {{/each}}
 
-
-{{!-- {{#each this}}
-<li>
-    <a href="{{url}}" target="_blank" rel="noopener noreferrer">
-        <article>
-            <img src="{{urlToImage}}" alt="" width="480">
-            <h2>{{title}}</h2>
-            <p>Posted by: {{author}}</p>
-            <p>{{description}}</p>
-        </article>
-    </a>
-</li>
-{{/each}} --}}

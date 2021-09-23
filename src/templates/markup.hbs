@@ -1,9 +1,6 @@
 {{#each this}}
-<li class="gallery-item">
-<div class="photo-card">
-    <div class='photo-card__thumb'>
+<li class="photo-card">    
     <img src="{{webformatURL}}" class='photo-card_image' data-source="{{largeImageURL}}" alt="{{tags}}" />
-</div>
     <div class="stats">
         <p class="stats-item">
             <i class="material-icons">thumb_up</i>
@@ -22,7 +19,6 @@
             {{downloads}}
         </p>
     </div>
-</div>
 </li>
 {{/each}}
 

@@ -30,6 +30,7 @@ function onSearch(e) {
     /// если ввели  пробелы 
     if (imagesApiService.searchQuery === "") {
         showError(ErrorText);
+        loadMoreBtn.hide();
         return;
     }
     //gthtl  новым запросом надо  обновить параметр  page  снова до 1 
@@ -47,10 +48,10 @@ function onSearch(e) {
                 loadMoreBtn.hide();
                 console.log(imagesApiService.searchQuery);
                 refs.formEl.reset();
-                return; 
+                return;
             }
-
             renderImageCard(hits);
+             refs.formEl.reset(); 
 
             if (totalHits <= 12) {
                 loadMoreBtn.hide();
